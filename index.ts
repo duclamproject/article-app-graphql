@@ -13,7 +13,6 @@ const port: number | string = process.env.PORT || 3000;
 database.connect();
 
 // GraphQL
-
 const startServer = async () => {
   const apolloServer = new ApolloServer({ typeDefs, resolvers });
   await apolloServer.start();
