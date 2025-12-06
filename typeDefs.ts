@@ -10,5 +10,6 @@ export const typeDefs = gql`
   type Query {
     hello: String
     getListArticle: [Article]
+    getArticleById(id: ID): Article
   }
 `;
