@@ -3,8 +3,35 @@ import Category from "../models/category.model";
 
 export const resolversArticle = {
   Query: {
-    getListArticle: async () => {
-      return await Article.find({ deleted: false });
+    getListArticle: async (_, args) => {
+      const {
+        sortKey,
+        sortValue,
+        currentPage,
+        limitItem,
+        filterKey,
+        filterValue,
+        keyword,
+      } = args;
+      const find = { deleted: false };
+      // Sort
+      const sort = {};
+      if (sortKey && sortValue) {
+        sort[sortKey] = sortValue;
+      }
+      // Pagination
+      const skip = (parseInt(currentPage) - 1) * parseInt(limitItem);
+      // filter
+      if (filterKey && filterValue) {
+        find[filterKey] = filterValue;
+      }
+      // Search
+      if (keyword) {
+        const keywordRegex = new RegExp(keyword, "i");
+        find["title"] = keywordRegex;
+      }
+      const articles = await Article.find(find).sort(sort).skip(skip);
+      return articles;
     },
     getArticle: async (_, args) => {
       const { id } = args;

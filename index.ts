@@ -1,7 +1,7 @@
 import express, { Express } from "express";
 import * as database from "./config/database";
 import dotenv from "dotenv";
-import { ApolloServer, gql } from "apollo-server-express";
+import { ApolloServer } from "apollo-server-express";
 import { typeDefs } from "./typeDefs/index.typeDefs";
 import { resolvers } from "./resolvers/index.resolvers";
 
