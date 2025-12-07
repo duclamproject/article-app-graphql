@@ -14,29 +14,33 @@ export const typeDefs = gql`
     avatar: String
     description: String
   }
-  type Query {
-    hello: String
-    getListArticle: [Article]
-    getArticle(id: ID): Article
-    getListCategory: [Category]
-    getCategory(id: ID): Category
-  }
 
   input ArticleInput {
     title: String
     avatar: String
     description: String
+    categoryId: String
   }
   input CategoryInput {
     title: String
     avatar: String
   }
 
+  type Query {
+    hello: String
+    # Article
+    getListArticle: [Article]
+    getArticle(id: ID): Article
+    # Category
+    getListCategory: [Category]
+    getCategory(id: ID): Category
+  }
+
   type Mutation {
+    # Article
     createArticle(article: ArticleInput): Article
     updateArticle(id: ID, article: ArticleInput): Article
     deleteArticle(id: ID): String
-
     # Category
     createCategory(category: CategoryInput): Category
     updateCategory(id: ID, category: CategoryInput): Category
