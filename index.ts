@@ -1,9 +1,9 @@
-import express, { Express, Request, Response } from "express";
+import express, { Express } from "express";
 import * as database from "./config/database";
 import dotenv from "dotenv";
 import { ApolloServer, gql } from "apollo-server-express";
-import { typeDefs } from "./typeDefs";
-import { resolvers } from "./resolvers";
+import { typeDefs } from "./typeDefs/index.typeDefs";
+import { resolvers } from "./resolvers/index.resolvers";
 
 dotenv.config();
 const app: Express = express();
@@ -14,7 +14,10 @@ database.connect();
 
 // GraphQL
 const startServer = async () => {
-  const apolloServer = new ApolloServer({ typeDefs, resolvers });
+  const apolloServer = new ApolloServer({
+    typeDefs: typeDefs,
+    resolvers: resolvers,
+  });
   await apolloServer.start();
   apolloServer.applyMiddleware({
     app: app,
